@@ -1,9 +1,12 @@
 <label for="preg" class="rem">Pregunta:</label>
 <input type="text" id="preg" name="quiz[pregunta]" value="<%= quiz.pregunta %>"/> <p>
+    <!-- Con quiz[pregunta]
+    indicamos que se envia la propiedad pregunta de quiz es
+    decir solo en el body tendriamos un objeto de tipo quiz con dos propiedades-->
     <label for="resp" class="rem">Respuesta:</label>
-    <input type="text" id="resp" name="quiz[respuesta]" value="<%= quiz.respuesta %>"/> <p>
-<p>
-    <a href="/quizes">
-        <button type="button">Cancelar</button>
-    </a>
-    <input type="submit" value="Salvar">
+    <input type="text" id="resp" name="quiz[respuesta]" value="<%= quiz.respuesta %>"/>
+<p></p></br>
+<a href="/quizes">
+    <button type="button">Cancelar</button>
+</a>
+<input type="submit" value="Salvar">

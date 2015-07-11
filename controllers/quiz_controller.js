@@ -50,7 +50,7 @@ exports.answer = function (req, res) {
 
 // GET /quizes/new
 exports.new = function (req, res) {
-    var quiz = models.Quiz.build( // crea objeto quiz
+    var quiz = models.Quiz.build( // crea objeto quiz con dos propiedades pregunta y respuesta
         {pregunta: "Pregunta", respuesta: "Respuesta"}
     );
 
@@ -76,3 +76,29 @@ exports.create = function (req, res) {
         }
     ).catch(function(error){next(error)});
 };
+
+//GET /quizes/:id/edit para editar la pregunta
+exports.edit = function(req,res){
+    var quiz = req.quiz; //autoload de instancia de quiz, ya qu ela url llevaba quizId se activo el autoload
+    res.render('quizes/edit',{quiz:quiz,errors:[]});
+};
+
+//PUT /quizes/update
+//Recordar que lo que se envia a traves de los formularios se almacena en el body
+exports.update = function(req,res){
+    req.quiz.pregunta = req.body.quiz.pregunta;
+    req.quiz.respuesta= req.body.quiz.respuesta;
+
+    req.quiz
+        .validate()
+        .then(function(err){
+            if(err) {
+                res.render('quizes/edit', {quiz: req.quiz, errors: err.errors});
+            } else{
+                req.quiz
+                    .save({fields:["pregunta","respuesta"]})
+                    .then(function(){res.redirect('/quizes');});
+            }//Redireccion HTTP a lista de preguntas
+        }
+    );//fin primer then
+};//fin de mw //PUT

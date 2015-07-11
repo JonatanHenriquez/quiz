@@ -24,5 +24,7 @@ router.get('/authors', function (req, res) {
 
 router.get('/quizes/new', quizController.new);
 router.post('/quizes/create', quizController.create);
+router.get('/quizes/:quizId(\\d+)/edit', quizController.edit);//se acitvara autoload ya que lleva quizId
+router.put('/quizes/:quizId(\\d+)', quizController.update);//las actualizaciones usan PUT
 
 module.exports = router;

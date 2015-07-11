@@ -1,6 +1,12 @@
-body{ background: #333;  }
 
+
+body             { background: #333; }
+
+#page-wrap:after { content: "Smartphone Layout"; }
 /*Esto no aparecera en la pantalla*/
-h2 span, section h3 {display: none;}
-body{ font-size: xx-large;}
-footer,input{font-size: large;}
+h2 span, section h3, .rem
+{ display: none; }
+
+body             { font-size: xx-large; }
+input, button    { font-size: x-large; }
+footer           { font-size: large; }

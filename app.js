@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var partials = require("express-partials");
-
+var methodOverride = require('method-override');
 var routes = require('./routes/index');
 
 
@@ -22,6 +22,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(partials());
 app.use(express.static(path.join(__dirname, 'public')));
+
+//util para las transacciones put y delete
+app.use(methodOverride('_method'));
 
 app.use('/', routes);
 
