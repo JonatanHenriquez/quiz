@@ -5,6 +5,18 @@
 var expresss = require("express");
 var models = require("../models/models.js");
 
+//Autoload :id de comentarios
+exports.load = function(req,res,next,commentId){
+    models.Comment.find({
+        where:{id: Number(commentId)}
+    }).then(function(comment){//una vez conseguido el comment se procede a almacenarlo
+        if(comment){
+            req.comment = comment; //se almacena el comentario en req.comment
+            next();
+        }else{next(new Error("No existe commentId= "+commentId))}
+    }).catch(function(error){next(error)});
+};
+
 //GET /quizes/:quizId/comment/new
 //Para crear un nuevo comment se debe mandar el quizId del quiz al que pertenecera para guardarlo como su fk
 exports.new = function (req, res) {
@@ -34,4 +46,11 @@ exports.create = function (req, res) {
             }//res.redirect: Redireccion HTTP a lista de preguntas
         }
     ).catch(function(error){next(error)});
+};
+
+//GET /quizes/:quizId/comments/:commentId/publish
+exports.publish = function(req,res){
+    req.comment.publicado = true;
+    req.comment.save({fields:["publicado"]}).then(function(){res.redirect('/quizes/'+req.params.quizId);})
+        .catch(function (error) {next(error)});
 };
