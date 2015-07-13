@@ -1,6 +1,13 @@
 <p></p>
-<form method="get" action="/quizes/<%= quiz.id %>/answer">
+<form method="get" action="/quizes/<%= quiz.id%>/answer">
     Pregunta: <%= quiz.pregunta %><p></p></br>
     <input type="text" name="respuesta" required placeholder="Responda aqui"/>
     <input type="submit" value="Enviar">
 </form>
+
+<p><a href="/quizes/<%=quiz.id%>/comments/new"><button>Nuevo Comentario</button></a> </p>
+
+<p><strong>Comentarios:</strong></p>
+<%for(index in quiz.Comments){%><!--Como en el autoload se crea el objeto quiz ya con el valor comment por eso podemos acceder a el desde aqui-->
+    <p>- <%=quiz.Comments[index].texto%></p>
+<%}%>
